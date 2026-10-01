@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cachedConfig, loadConfig, type Config } from './lib/data';
+import { MeshDriftBackground } from './components/MeshDriftBackground';
 import { cellsBetween, generatePuzzle, snapToLine, type Placement, type Puzzle } from './lib/generator';
 
 type Cell = [number, number];
@@ -223,13 +224,25 @@ export default function Kiosk() {
 
   return (
     <div className="kiosk">
+      {/* latar hitam ialah fallback jika WebGL gagal */}
+      <div className="k-bg">
+        <MeshDriftBackground />
+      </div>
+      <div className="k-content">
       <header className="k-header">
         <div className="k-brand">
-          <PlaneIcon />
+          <img className="k-brand-icon" src="/logo/TurbineIcon.svg" alt="" />
           <div>
             <h1>{settings.title}</h1>
             <p>{settings.subtitle}</p>
           </div>
+        </div>
+        <div className="k-logos">
+          <img src="/logo/OFLogo.png" alt="Global Turbine Asia" className="lg-gta" />
+          <span className="k-logos-sep" />
+          <img src="/logo/gtaholding.jpeg" alt="GTA Holding" className="lg-holding" />
+          <span className="k-logos-sep" />
+          <img src="/logo/gtasympo.jpeg" alt="GTA Customer Symposium 2026" className="lg-sympo" />
         </div>
       </header>
 
@@ -290,6 +303,7 @@ export default function Kiosk() {
           )}
         </section>
       </main>
+      </div>
 
       {status === 'success' && target && (
         <div className="k-success" onClick={newRound}>
@@ -319,12 +333,4 @@ export default function Kiosk() {
 function toggleFullscreen() {
   if (document.fullscreenElement) document.exitFullscreen();
   else document.documentElement.requestFullscreen?.().catch(() => {});
-}
-
-function PlaneIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="44" height="44" aria-hidden>
-      <path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" />
-    </svg>
-  );
 }

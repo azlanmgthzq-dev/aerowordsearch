@@ -26,21 +26,48 @@ button { font: inherit; cursor: pointer; }
 
 /* ================= KIOSK ================= */
 .kiosk {
+  position: relative;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
-  background:
-    radial-gradient(1200px 600px at 80% -10%, #2a5aa0 0%, transparent 60%),
-    radial-gradient(900px 500px at -10% 110%, #173e7a 0%, transparent 55%),
-    linear-gradient(180deg, var(--sky-1), var(--sky-0));
+  background: var(--sky-0); /* fallback jika WebGL gagal */
   user-select: none;
   -webkit-user-select: none;
 }
+/* latar shader "mesh drift" */
+.k-bg { position: absolute; inset: 0; z-index: 0; }
+.k-bg > div { position: absolute; inset: 0; width: 100%; height: 100%; }
+.k-content {
+  position: relative; z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* latar sibuk: bayang teks supaya tajuk kekal jelas */
+.k-brand h1, .k-brand p { text-shadow: 0 2px 16px rgba(0, 0, 0, .65); }
 
-.k-header { padding: 2.2vh 3vw 1vh; }
-.k-brand { display: flex; align-items: center; gap: 1.2vw; color: var(--amber); }
-.k-brand svg { width: 5.5vh; height: 5.5vh; transform: rotate(45deg); }
+.k-header {
+  padding: 2.2vh 3vw 1vh;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2vh 3vw; flex-wrap: wrap;
+}
+.k-brand { display: flex; align-items: center; gap: 1.2vw; color: var(--amber); min-width: 0; }
+.k-brand-icon {
+  width: 7.5vh; height: 7.5vh; flex: none;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .45));
+  animation: spin 18s linear infinite;
+}
+
+/* jalur logo penaja: kad putih kerana logo berlatar putih */
+.k-logos {
+  display: flex; align-items: center; gap: 1.6vw;
+  background: #fff; border-radius: 14px;
+  padding: 1vh 1.6vw;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+}
+.k-logos img { display: block; height: 6vh; width: auto; object-fit: contain; }
+.k-logos .lg-gta { height: 3.6vh; }
+.k-logos .lg-holding { height: 5.4vh; }
+.k-logos-sep { width: 1px; align-self: stretch; background: #d5dbe5; }
 .k-brand h1 {
   margin: 0; color: var(--text);
   font-family: 'Space Grotesk', sans-serif; font-weight: 700;
@@ -58,9 +85,17 @@ button { font: inherit; cursor: pointer; }
 }
 
 .k-panel {
-  align-self: stretch;
+  align-self: center;
   display: flex; flex-direction: column; justify-content: center;
   gap: 1.6vh;
+  /* permukaan separa legap supaya teks jelas atas blob putih */
+  background: rgba(6, 20, 43, .78);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 22px;
+  padding: 3.5vh 2.4vw;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .k-label {
   text-transform: uppercase; letter-spacing: .25em;
@@ -94,7 +129,7 @@ button { font: inherit; cursor: pointer; }
 
 .k-board { display: flex; justify-content: center; align-items: center; }
 .k-grid {
-  --size: min(calc(100vh - 17vh), 60vw);
+  --size: min(calc(100vh - 19vh), 60vw);
   position: relative;
   width: var(--size); height: var(--size);
   display: grid;
@@ -201,10 +236,18 @@ kbd { background: #24477d; border-radius: 4px; padding: 1px 6px; font-size: 12px
   .k-target { font-size: clamp(28px, 6vh, 80px); text-align: center; }
   .k-label, .k-status { text-align: center; }
   .k-hint { align-self: center; }
-  .k-grid { --size: min(94vw, calc(100vh - 38vh)); }
+  .k-grid { --size: min(94vw, calc(100vh - 44vh)); }
+  .k-header { justify-content: center; }
+  .k-logos { gap: 3vw; padding: 1vh 3vw; }
+  .k-logos img { height: 4.5vh; }
+  .k-logos .lg-gta { height: 2.6vh; }
+  .k-logos .lg-holding { height: 4vh; }
 }
 
+@media (prefers-reduced-motion: reduce) { .k-brand-icon { animation: none; } }
+
 @keyframes pop { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(.85); } }
 @keyframes draw { from { stroke-width: 0; } to { stroke-width: .78; } }
