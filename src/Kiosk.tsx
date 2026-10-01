@@ -233,6 +233,7 @@ export default function Kiosk() {
         <div className="k-brand">
           <img className="k-brand-icon" src="/logo/TurbineIcon.svg" alt="" />
           <div>
+            <div className="k-theme">Engineered By Trust</div>
             <h1>{settings.title}</h1>
             <p>{settings.subtitle}</p>
           </div>

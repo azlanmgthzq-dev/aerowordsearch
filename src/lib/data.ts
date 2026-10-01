@@ -32,7 +32,7 @@ export const LIMITS = {
 };
 
 export const DEFAULT_SETTINGS: Settings = {
-  title: 'Aviation Word Hunt',
+  title: 'Engineered By Trust',
   subtitle: 'Find the word & get your passport stamped!',
   grid_size: 12,
   words_on_grid: 10,

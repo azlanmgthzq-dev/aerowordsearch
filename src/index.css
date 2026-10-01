@@ -56,6 +56,15 @@ button { font: inherit; cursor: pointer; }
   filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .45));
   animation: spin 18s linear infinite;
 }
+/* tema acara */
+.k-theme {
+  color: var(--amber);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .28em;
+  font-size: clamp(12px, 1.9vh, 20px);
+  margin-bottom: .4vh;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .65);
+}
 
 /* jalur logo penaja: kad putih kerana logo berlatar putih */
 .k-logos {
@@ -244,7 +253,6 @@ kbd { background: #24477d; border-radius: 4px; padding: 1px 6px; font-size: 12px
   .k-logos .lg-holding { height: 4vh; }
 }
 
-@media (prefers-reduced-motion: reduce) { .k-brand-icon { animation: none; } }
 
 @keyframes pop { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -309,3 +317,5 @@ kbd { background: #24477d; border-radius: 4px; padding: 1px 6px; font-size: 12px
 .admin .del { border: 0; background: none; color: #a0acbd; padding: 6px 10px; }
 .admin .del:hover { color: #c62828; }
 .admin .del.confirm { color: #fff; background: #c62828; border-radius: 6px; font-size: 12px; padding: 5px 8px; }
+
+@media (prefers-reduced-motion: reduce) { .k-brand-icon { animation: none; } }
